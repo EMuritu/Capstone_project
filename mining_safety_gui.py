@@ -71,7 +71,7 @@ class MiningSafetyApp:
         else:  # Linux
             self.emoji_font = ('Noto Color Emoji', 12)
         
-        # Test if emojis work
+        # Testing
         try:
             test_label = tk.Label(self.root, text="🚨⚠️✅", font=self.emoji_font)
             test_label.pack()
@@ -86,7 +86,7 @@ class MiningSafetyApp:
         main_frame = ttk.Frame(self.root, padding=20)
         main_frame.pack(fill=tk.BOTH, expand=True)
         
-        # Title with emoji
+        # Title
         title = "⛏️ Mining Safety Monitoring System 🚨" if self.use_emojis else "Mining Safety Monitoring System"
         ttk.Label(main_frame, text=title, font=('Helvetica', 16, 'bold')).grid(row=0, column=0, columnspan=3, pady=10)
         
@@ -110,7 +110,7 @@ class MiningSafetyApp:
                 'status_label': status_label
             })
         
-        # Control buttons with emojis
+        # Control buttons
         button_frame = ttk.Frame(main_frame)
         button_frame.grid(row=2, column=0, columnspan=3, pady=20)
         
@@ -139,7 +139,7 @@ class MiningSafetyApp:
             status = sensor.check_status()
             self.sensor_frames[i]['value_label'].config(text=f"{sensor.current_value}")
             
-            # Emoji status with fallback
+            # status
             if self.use_emojis:
                 status_emoji = {
                     "CRITICAL": "🔴 CRITICAL",
@@ -182,7 +182,7 @@ class MiningSafetyApp:
             status_msg = "✅ All systems normal" if self.use_emojis else "All systems normal"
             self.alert_text.insert(tk.END, status_msg)
         else:
-            # Headers with emojis
+            # Headers
             crit_header = f"🚨 CRITICAL alerts: {self.alert_system.critical_count}\n" if self.use_emojis else f"CRITICAL alerts: {self.alert_system.critical_count}\n"
             warn_header = f"⚠️ WARNING alerts: {self.alert_system.warning_count}\n\n" if self.use_emojis else f"WARNING alerts: {self.alert_system.warning_count}\n\n"
             
@@ -238,7 +238,7 @@ class MiningSafetyApp:
             with open(filename, 'a', newline='', encoding='utf-8') as f:
                 writer = csv.writer(f)
                 for severity, alert in self.alert_system.alerts:
-                    # Remove emojis from CSV export
+                    
                     clean_alert = alert.replace("🚨", "").replace("⚠️", "").strip()
                     writer.writerow([
                         datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -250,7 +250,7 @@ class MiningSafetyApp:
             messagebox.showerror("Error", f"Failed to export logs: {str(e)}")
 
 if __name__ == "__main__":
-    # Windows HiDPI fix
+    
     if sys.platform == 'win32':
         from ctypes import windll
         windll.shcore.SetProcessDpiAwareness(1)
